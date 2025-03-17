@@ -17,19 +17,19 @@ class CameraYoloDepthSubscriber(Node):
             '/camera/color/image_raw',
             self.image_callback,
             10)
-        self.get_logger().info('📡 開始訂閱 /camera/color/image_raw ...')
+        self.get_logger().info('📡 開始訂閱 /camera/color/image_raw ... | start subscribing /camera/color/image_raw ...')
 
         self.depth_subscription = self.create_subscription(
             Image,
             '/camera/depth/image_rect_raw',
             self.depth_callback,
             10)
-        self.get_logger().info('📡 開始訂閱 /camera/depth/image_rect_raw ...')
+        self.get_logger().info('📡 開始訂閱 /camera/depth/image_rect_raw ... | start subscribing /camera/depth/image_rect_raw ...')
+
+
 
         self.latest_depth_image = None
-
         self.distance_threshold = 1.0 
-
         self.model = YOLO('yolov8l.pt')
 
     def image_callback(self, msg):
@@ -62,21 +62,21 @@ class CameraYoloDepthSubscriber(Node):
             cv2.imshow('YOLO Depth Estimation', cv_image)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                self.get_logger().info('🔴 停止辨識節點')
+                self.get_logger().info('🔴 停止辨識節點 | top recognition node')
                 rclpy.shutdown()
 
         except Exception as e:
-            self.get_logger().error(f'影像處理錯誤: {str(e)}')
+            self.get_logger().error(f'影像處理錯誤 | image processing error: {str(e)}')
 
     def depth_callback(self, msg):
-        """接收深度影像，轉換成 NumPy 陣列"""
+        """接收深度影像，轉換成 NumPy 陣列 | receive the depth image and convert it to a NumPy array"""
         try:
             self.latest_depth_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='passthrough')
         except Exception as e:
-            self.get_logger().error(f'深度影像處理錯誤: {str(e)}')
+            self.get_logger().error(f'深度影像處理錯誤 | depth image processing error: {str(e)}')
 
     def get_depth_at_point(self, x, y):
-        """從最新的深度影像中獲取某點的深度值"""
+        """從最新的深度影像中獲取某點的深度值 | get the depth value of a point from the latest depth image"""
         if self.latest_depth_image is None:
             return -1  
 
@@ -89,7 +89,7 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        node.get_logger().info('🔴 停止訂閱節點')
+        node.get_logger().info('🔴 停止訂閱節點 | stop subscribing node')
     finally:
         node.destroy_node()
         rclpy.shutdown()
