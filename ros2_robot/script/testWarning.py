@@ -24,7 +24,7 @@ class CameraYoloDepthSubscriber(Node):
             '/camera/depth/image_rect_raw',
             self.depth_callback,
             10)
-        self.get_logger().info('📡 開始訂閱 /camera/depth/image_rect_raw ... | start subscribing /camera/depth/image_rect_raw ...')
+        self.get_logger().info('📡 開始訂閱 /camera/depth/image_rect_raw ...')
 
 
 
