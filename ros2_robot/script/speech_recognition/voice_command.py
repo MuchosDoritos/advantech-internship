@@ -58,11 +58,26 @@ class VoiceCommandHandler(Node):
             handler()
         else:
             self.get_logger().warn(f'Unknown command: {command}')
-    
+
     def handle_forward(self):
         """Handle the 'forward' command."""
         self.publish_control("forward")
         self.provide_feedback("Moving forward")
+
+    def handle_backward(self):
+        """Handle the 'backward' command."""
+        self.publish_control("backward")
+        self.provide_feedback("Moving backward")
+
+    def handle_left(self):
+        """Handle the 'left' command."""
+        self.publish_control("left")
+        self.provide_feedback("Turning left")
+
+    def handle_right(self):
+        """Handle the 'right' command."""
+        self.publish_control("right")
+        self.provide_feedback("Turning right")
     
     def handle_stop(self):
         """Handle the 'stop' command."""
