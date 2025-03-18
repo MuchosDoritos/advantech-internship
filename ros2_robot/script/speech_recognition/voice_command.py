@@ -42,6 +42,9 @@ class VoiceCommandHandler(Node):
         # Command handlers - easily extendable
         self.command_handlers = {
             "forward": self.handle_forward,
+            "backward": self.handle_backward,
+            "left": self.handle_left,
+            "right": self.handle_right,
             "stop": self.handle_stop
         }
         
