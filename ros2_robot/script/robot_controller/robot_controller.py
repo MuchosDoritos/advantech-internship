@@ -117,7 +117,7 @@ class RobotController(Node):
         
         # Send multiple stop commands to ensure robot stops
         # (sometimes a single stop command might be missed)
-        self.create_timer(0.1, self.repeat_stop, callback_group=None, oneshot=True)
+        self.create_timer(0.1, self.repeat_stop)
     
     def repeat_stop(self):
         """Send a second stop command to ensure robot stops."""
@@ -125,6 +125,11 @@ class RobotController(Node):
         twist.linear.x = 0.0
         twist.angular.z = 0.0
         self.movement_publisher.publish(twist)
+
+        if hasattr(self, '_repeat_stop_timer') and self._repeat_stop_timer:
+            self._repeat_stop_timer.cancel()
+            self._repeat_stop_timer = None
+        return False;
     
     def set_stop_timer(self):
         """Set a timer to stop the robot after a timeout."""
