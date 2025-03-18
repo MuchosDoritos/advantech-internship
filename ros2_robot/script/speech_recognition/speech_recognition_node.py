@@ -57,7 +57,7 @@ class SpeechRecognitionNode(Node):
         """Adjust microphone for ambient noise levels."""
         try:
             with self.microphone as source:
-                self.get_logger().info('Adjusting for ambient noise... Please be quiet.')
+                self.get_logger().info('Adjusting for ambient noise for 5 seconds... Please be quiet.')
                 self.recognizer.adjust_for_ambient_noise(source, duration=5)
                 self.get_logger().info('Microphone calibrated. Ready to listen!')
         except Exception as e:
@@ -74,8 +74,8 @@ class SpeechRecognitionNode(Node):
                     self.get_logger().debug('Listening for commands...')
                     audio = self.recognizer.listen(
                         source, 
-                        timeout=1.0, 
-                        phrase_time_limit=5.0
+                        timeout=10.0, 
+                        phrase_time_limit=15.0
                     )
                 
                 try:
