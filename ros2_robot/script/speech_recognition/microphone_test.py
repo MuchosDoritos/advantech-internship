@@ -13,11 +13,17 @@ def test_microphone():
     
     # List available microphones
     print("Available microphones:")
-    for i, microphone_name in enumerate(sr.Microphone.list_microphone_names()):
+    mic_names = sr.Microphone.list_microphone_names()
+    for i, microphone_name in enumerate(mic_names):
         print(f"  {i}: {microphone_name}")
     
-    # Default microphone
-    microphone = sr.Microphone()
+    # Use specified microphone or prompt for selection
+    if device_index is None:
+        print("\nWhich microphone would you like to use? (Enter the number)")
+        device_index = int(input("> "))
+
+    print(f"\nUsing microphone: {mic_names[device_index]}")
+    microphone = sr.Microphone(device_index=device_index)
     
     print("\nTesting default microphone...")
     print("I'll listen for audio for 5 seconds and report on what I hear.")
