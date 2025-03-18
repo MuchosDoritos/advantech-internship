@@ -37,8 +37,8 @@ class RobotController(Node):
         self.movement_timeout = 3.0  # Robot stops after 3 seconds if no new command
         
         # Define movement speeds - adjust these based on your robot's capabilities
-        self.linear_speed = 0.15  # m/s - reduced for safety during testing
-        self.angular_speed = 0.3  # rad/s - reduced for safety during testing
+        self.linear_speed = 0.4  # m/s - reduced for safety during testing
+        self.angular_speed = 0.6  # rad/s - reduced for safety during testing
         
         # Movement state tracking
         self.current_movement = "stopped"
