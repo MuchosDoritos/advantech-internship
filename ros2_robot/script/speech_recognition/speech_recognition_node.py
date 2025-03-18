@@ -53,6 +53,17 @@ class SpeechRecognitionNode(Node):
         
         self.get_logger().info('Speech recognition node initialized and listening!')
 
+    def setup_microphone(self):
+        """Adjust microphone for ambient noise levels."""
+        try:
+            with self.microphone as source:
+                self.get_logger().info('Adjusting for ambient noise... Please be quiet.')
+                self.recognizer.adjust_for_ambient_noise(source, duration=5)
+                self.get_logger().info('Microphone calibrated. Ready to listen!')
+        except Exception as e:
+            self.get_logger().error(f'Microphone setup failed: {e}')
+            self.get_logger().warn('Continuing with default settings')
+
     def listen_continuously(self):
         """Continuously listen for speech commands in a separate thread."""
         self.is_listening = True
