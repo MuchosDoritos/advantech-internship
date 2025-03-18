@@ -35,8 +35,7 @@ class SpeechRecognitionNode(Node):
         self.recognizer.dynamic_energy_threshold = True
         
         # List of supported commands
-        self.commands = ["forward", "stop"]
-        
+        self.commands = ["forward", "backward", "left", "right", "stop"]        
         # Track recognition state
         self.is_listening = False
         
