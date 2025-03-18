@@ -117,7 +117,7 @@ class RobotController(Node):
         
         # Send multiple stop commands to ensure robot stops
         # (sometimes a single stop command might be missed)
-        self.create_timer(0.1, self.repeat_stop, callback_group=None)
+        self.create_timer(0.1, self.repeat_stop, callback_group=None, oneshot=True)
     
     def repeat_stop(self):
         """Send a second stop command to ensure robot stops."""
