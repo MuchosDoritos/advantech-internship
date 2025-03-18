@@ -37,7 +37,11 @@ class SpeechRecognitionNode(Node):
         self.get_logger().info(f'Speech recognition parameters: energy_threshold={self.recognizer.energy_threshold}, dynamic={self.recognizer.dynamic_energy_threshold}')
     
         # List of supported commands
-        self.commands = ["forward", "backward", "left", "right", "stop"]   
+        self.commands = ["forward", "backward", "left", "right", "stop"]
+        # can you make sure that there are multiple variantions for speech of the same command and then map it correctly?
+
+
+
         self.get_logger().info(f'Supported commands: {", ".join(self.commands)}')
      
         # Track recognition state

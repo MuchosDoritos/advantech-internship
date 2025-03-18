@@ -34,7 +34,7 @@ class RobotController(Node):
         
         # Create a timer for stopping the robot after timeout
         self.stop_timer = None
-        self.movement_timeout = 7.0  # Robot stops after 3 seconds if no new command
+        self.movement_timeout = 3.0  # Robot stops after 3 seconds if no new command
         
         # Define movement speeds - adjust these based on your robot's capabilities
         self.linear_speed = 0.15  # m/s - reduced for safety during testing
