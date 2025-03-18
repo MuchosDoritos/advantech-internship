@@ -28,14 +28,18 @@ class SpeechRecognitionNode(Node):
         
         # Initialize the speech recognizer
         self.recognizer = sr.Recognizer()
-        self.microphone = sr.Microphone()
+        self.microphone = sr.Microphone(device_index=3)
+        self.get_logger().info(f'Using microphone device index: 3')
         
         # Configure speech recognition parameters
         self.recognizer.energy_threshold = 300
         self.recognizer.dynamic_energy_threshold = True
-        
+        self.get_logger().info(f'Speech recognition parameters: energy_threshold={self.recognizer.energy_threshold}, dynamic={self.recognizer.dynamic_energy_threshold}')
+    
         # List of supported commands
-        self.commands = ["forward", "backward", "left", "right", "stop"]        
+        self.commands = ["forward", "backward", "left", "right", "stop"]   
+        self.get_logger().info(f'Supported commands: {", ".join(self.commands)}')
+     
         # Track recognition state
         self.is_listening = False
         
@@ -48,17 +52,6 @@ class SpeechRecognitionNode(Node):
         self.listening_thread.start()
         
         self.get_logger().info('Speech recognition node initialized and listening!')
-
-    def setup_microphone(self):
-        """Adjust microphone for ambient noise levels."""
-        try:
-            with self.microphone as source:
-                self.get_logger().info('Adjusting for ambient noise... Please be quiet.')
-                self.recognizer.adjust_for_ambient_noise(source, duration=2)
-                self.get_logger().info('Microphone calibrated. Ready to listen!')
-        except Exception as e:
-            self.get_logger().error(f'Microphone setup failed: {e}')
-            self.get_logger().warn('Continuing with default settings')
 
     def listen_continuously(self):
         """Continuously listen for speech commands in a separate thread."""
