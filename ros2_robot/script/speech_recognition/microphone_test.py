@@ -27,7 +27,7 @@ def test_microphone(device_index=None):
     microphone = sr.Microphone(device_index=device_index)
     
     print("\nTesting selected microphone...")
-    print("I'll listen for audio for 5 seconds and report on what I hear.")
+    print("I'll listen for audio for 10 seconds and report on what I hear.")
     
     # Test microphone by measuring audio level
     with microphone as source:
@@ -35,12 +35,12 @@ def test_microphone(device_index=None):
         recognizer.adjust_for_ambient_noise(source, duration=2)
         print(f"Energy threshold set to {recognizer.energy_threshold}")
         
-        print("\nNow make some noise! Listening for 5 seconds...")
+        print("\nNow make some noise! Listening for 10 seconds...")
         start_time = time.time()
         
         # Listen for audio and report what was heard
         try:
-            audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
+            audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
             end_time = time.time()
             duration = end_time - start_time
             
