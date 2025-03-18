@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Simple microphone test script for your robot.
 This script will test if your microphone is working correctly without requiring ROS2.
@@ -6,7 +7,7 @@ This script will test if your microphone is working correctly without requiring 
 import speech_recognition as sr
 import time
 
-def test_microphone():
+def test_microphone(device_index=None):
     """Test if the microphone is working and can capture audio."""
     # Initialize recognizer and microphone
     recognizer = sr.Recognizer()
@@ -21,11 +22,11 @@ def test_microphone():
     if device_index is None:
         print("\nWhich microphone would you like to use? (Enter the number)")
         device_index = int(input("> "))
-
+    
     print(f"\nUsing microphone: {mic_names[device_index]}")
     microphone = sr.Microphone(device_index=device_index)
     
-    print("\nTesting default microphone...")
+    print("\nTesting selected microphone...")
     print("I'll listen for audio for 5 seconds and report on what I hear.")
     
     # Test microphone by measuring audio level
@@ -60,4 +61,5 @@ def test_microphone():
             print("No audio detected. Microphone might not be working correctly.")
             
 if __name__ == "__main__":
-    test_microphone()
+    # Use Jabra SPEAK 510 USB (device index 3)
+    test_microphone(device_index=3)
