@@ -30,7 +30,7 @@ class CameraYoloDepthSubscriber(Node):
 
         self.latest_depth_image = None
         self.distance_threshold = 1.0 
-        self.model = YOLO('yolov8l.pt')
+        self.model = YOLO('yolo11n.pt')
 
     def image_callback(self, msg):
         try:
